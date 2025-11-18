@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
-
+CORS(app)
 # Dictionary of campus locations and directions
 campus_map = {
     "library": "From the main gate, walk straight for 200 meters and turn left beside the Admin Building. The Library is the 2nd building on your right.",

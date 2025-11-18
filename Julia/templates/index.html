@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Campus Navigation ChatBot</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <div class="chat-container">
@@ -28,9 +28,9 @@
             chatBox.innerHTML += `<div class='user-text'>${message}</div>`;
             inputField.value = "";
 
-            const response = await fetch("/get", {
+            const response = await fetch("http://localhost:5000/get", {
                 method: "POST",
-                headers: {"Content-Type": "application/x-www-form-urlencoded"},
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: `msg=${message}`
             });
 
