@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Campus Navigation ChatBot</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+
 </head>
 <body>
     <div class="chat-container">
@@ -19,25 +20,44 @@
     </div>
 
     <script>
-        async function sendMessage() {
-            const inputField = document.getElementById("user-input");
-            const message = inputField.value.trim();
-            if (!message) return;
+    async function sendMessage() {
+        const inputField = document.getElementById("user-input");
+        const message = inputField.value.trim();
+        if (!message) return;
 
-            const chatBox = document.getElementById("chat-box");
-            chatBox.innerHTML += `<div class='user-text'>${message}</div>`;
-            inputField.value = "";
+        const chatBox = document.getElementById("chat-box");
+        chatBox.innerHTML += `<div class='user-text'>${message}</div>`;
+        inputField.value = "";
 
-            const response = await fetch("http://localhost:5000/get", {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: `msg=${message}`
+        const response = await fetch("/get", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: `msg=${message}`
+        });
+
+        const data = await response.json();
+
+        // Show main bot response
+        chatBox.innerHTML += `<div class='bot-text'>${data.response}</div>`;
+
+        // If there are step-by-step directions
+        if (data.steps && Array.isArray(data.steps)) {
+            data.steps.forEach(step => {
+                // Show step text
+                chatBox.innerHTML += `<div class='bot-text'>${step.text}</div>`;
+
+                // Show step image
+                if (step.image) {
+                    chatBox.innerHTML += `
+                        <img src="${step.image}" class="step-image">
+                    `;
+                }
             });
-
-            const data = await response.json();
-            chatBox.innerHTML += `<div class='bot-text'>${data.response}</div>`;
-            chatBox.scrollTop = chatBox.scrollHeight;
         }
-    </script>
+
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+</script>
+
 </body>
 </html>
