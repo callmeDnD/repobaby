@@ -53,22 +53,6 @@ campus_map = {
                 "text": "Go inside and Enjoyyy.."
             }
         ]
-    },
-    "canteen": {
-        "steps": [
-            {
-                "text": "Head towards the central plaza.",
-                "image": "picture/canteen_step1.jpg"
-            },
-            {
-                "text": "Walk beside the Student Center.",
-                "image": "picture/canteen_step2.jpg"
-            },
-            {
-                "text": "You have reached the canteen.",
-                "image": "picture/canteen_final.jpg"
-            }
-        ]
     }
 }
 
